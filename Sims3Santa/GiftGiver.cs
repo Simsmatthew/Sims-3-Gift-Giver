@@ -21,6 +21,11 @@ namespace Sims3.Gameplay.Services.Recursor94
             GiftGiver.kServiceTuning = new Service.ServiceTuning(4, 0, false, false, true);  //Look at constructor for meaning of values
             GiftGiver.sGiftGiver = null;
             GiftGiver.kEarliestTimeSimCanArrive = 23;
+           // World.OnWorldLoadFinishedEventHandler += new EventHandler(GiftGiver.OnWorldLoadFinished);
+
+           
+           
+
 
         }
 
@@ -104,12 +109,22 @@ namespace Sims3.Gameplay.Services.Recursor94
 
         public static void SpawnGiftGiver()
         {
+
+
+
+            Sims3.UI.TwoButtonDialog.Show("Sir.  The AlarmManager is armed and we are spawning the service.", "Hiya", "booya", false);
             if (GiftGiver.Instance == null)
+
+
             {
+
                 new GiftGiver(); //create a new instance of this service
             }
-        }
 
+           
+           
+        }
+        /*
         public void checkForSpawn(Lot lot, Sim sim)
         { //make this really simple at first--check burglar method for reference
             if (lot.AreAllSimsAsleepOrGone(sim))
@@ -117,11 +132,14 @@ namespace Sims3.Gameplay.Services.Recursor94
                 lot.AlarmManager.AddAlarm(kEarliestTimeSimCanArrive, TimeUnit.Hours, new AlarmTimerCallback(SpawnGiftGiver), "Gift Giver Spawner", AlarmType.AlwaysPersisted, this);
             }
         }
+        */
 
-
-        private static void OnWorldLoadFinished(object sender, EventArgs args)  //add this delegate so that the service is loaded after the game loads
+        private static void OnWorldLoadFinished(object sender, EventArgs args)  //add this delegate so that the event handler is loaded after the game loads
         {
-            GiftGiver.SpawnGiftGiver();
+
+            AlarmManager.Global.AddAlarm(7, TimeUnit.Hours, GiftGiver.SpawnGiftGiver, "Gift Giver Alarm", AlarmType.AlwaysPersisted, GiftGiver.sGiftGiver);
+       
+            
         }
     }
 }
