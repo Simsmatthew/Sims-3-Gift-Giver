@@ -103,7 +103,7 @@ namespace Sims3.Gameplay.Services.Recursor94
         {
             get {
 
-                return ServiceType.Repairman; //leave this for now, not sure exactly what this does.
+                return ServiceType.Burglar; //Apparently determines car, and clothing.  and maybe other things.  setting to repair man yields repair truck.
             }
         }
 
