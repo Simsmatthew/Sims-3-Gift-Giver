@@ -18,7 +18,7 @@ namespace Sims3.Gameplay.Objects.Recursor94
         {
             base.OnStartup();
             //Sims3.UI.TwoButtonDialog.Show("Sir.  The AlarmManager is armed and we are spawning the service.", "Hiya", "booya", false);
-            AlarmManager.Global.AddAlarm(1f, TimeUnit.Hours, GiftGiver.SpawnGiftGiver, "Gift Giver Alarm", AlarmType.AlwaysPersisted, GiftGiver.sGiftGiver);
+            GiftGiver.SpawnGiftGiver();
         }
     }
 }

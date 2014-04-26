@@ -112,7 +112,7 @@ namespace Sims3.Gameplay.Services.Recursor94
 
 
 
-            Sims3.UI.TwoButtonDialog.Show("Sir.  The AlarmManager is armed and we are spawning the service.", "Hiya", "booya", false);
+            //Sims3.UI.TwoButtonDialog.Show("Sir.  The AlarmManager is armed and we are spawning the service.", "Hiya", "booya", false);
             if (GiftGiver.Instance == null)
 
 
@@ -121,6 +121,8 @@ namespace Sims3.Gameplay.Services.Recursor94
                 new GiftGiver(); //create a new instance of this service
             }
 
+
+            LotManager.ActiveLot.AlarmManager.AddAlarm(1f, TimeUnit.Hours, GiftGiver.Instance.requestGiver, "Gift Giver Alarm", AlarmType.AlwaysPersisted, GiftGiver.sGiftGiver);
            
            
         }
@@ -140,6 +142,13 @@ namespace Sims3.Gameplay.Services.Recursor94
             AlarmManager.Global.AddAlarm(7, TimeUnit.Hours, GiftGiver.SpawnGiftGiver, "Gift Giver Alarm", AlarmType.AlwaysPersisted, GiftGiver.sGiftGiver);
        
             
+        }
+
+        public void requestGiver()
+        {
+            GiftGiver.Instance.MakeServiceRequest(LotManager.ActiveLot, false, PlumbBob.SelectedActor.ObjectId); //must be here for alarm manager since directly putting this in alarm manager call is broken.
+
+            Sims3.UI.TwoButtonDialog.Show("Sir.  The service has been requested.", "Hiya", "booya", false);
         }
     }
 }
