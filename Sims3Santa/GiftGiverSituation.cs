@@ -17,8 +17,10 @@ namespace Sims3.Gameplay.Services.Recursor94
             worker.AssignRole(this);
             this.Worker.Autonomy.Motives.MaxEverything();
             this.Worker.Autonomy.Motives.FreezeDecayEverythingExcept(new CommodityKind[0]);
+            this.Worker.Autonomy.AllowedToRunMetaAutonomy = false;
             this.Worker.Autonomy.IncrementAutonomyDisabled(); //what the heck does that do? VOV
             base.SetState(new GiftGiverSituation.RouteToLot (this));
+            base.ScheduleSwitchWorkerToServiceOutfit();
             
 
             
@@ -57,6 +59,12 @@ namespace Sims3.Gameplay.Services.Recursor94
             }
 
             public override void Init(GiftGiverSituation parent) {
+
+                // Sims3.UI.TwoButtonDialog.Show("Sir!  The routing has begun.", "Hiya", "booya", false);
+                parent.OnServiceStarting();
+                parent.MakeServiceSimVisible();
+                Audio.StartSound("sting_burglar_arrive");
+                base.RequestWalkStyle(parent.Worker, Sim.WalkStyle.Sneak);
                  this.Parent.SetState(new ServiceSituation.RouteToLot<GiftGiverSituation, GiftGiverSituation.LeaveGifts>(this.Parent));
             }
            

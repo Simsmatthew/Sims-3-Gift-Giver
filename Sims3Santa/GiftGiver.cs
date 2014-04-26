@@ -103,7 +103,7 @@ namespace Sims3.Gameplay.Services.Recursor94
         {
             get {
 
-                return ServiceType.Burglar; //leave this for now, not sure exactly what this does.
+                return ServiceType.Repairman; //leave this for now, not sure exactly what this does.
             }
         }
 
@@ -146,7 +146,7 @@ namespace Sims3.Gameplay.Services.Recursor94
 
         public void requestGiver()
         {
-            GiftGiver.Instance.MakeServiceRequest(LotManager.ActiveLot, false, PlumbBob.SelectedActor.ObjectId); //must be here for alarm manager since directly putting this in alarm manager call is broken.
+            GiftGiver.Instance.MakeServiceRequest(LotManager.ActiveLot, true, PlumbBob.SelectedActor.ObjectId); //must be here for alarm manager since directly putting this in alarm manager call is broken.
 
             Sims3.UI.TwoButtonDialog.Show("Sir.  The service has been requested.", "Hiya", "booya", false);
         }
