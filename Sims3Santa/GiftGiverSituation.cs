@@ -6,6 +6,7 @@ using Sims3.Gameplay.Actors;
 using Sims3.SimIFace;
 using Sims3.Gameplay.Autonomy;
 using Sims3.Gameplay.Abstracts;
+using Sims3.Gameplay.Objects.Recursor94;
 
 namespace Sims3.Gameplay.Services.Recursor94
 {
@@ -46,21 +47,24 @@ namespace Sims3.Gameplay.Services.Recursor94
 
         public class LeaveGifts : ChildSituation<GiftGiverSituation>
         { //** situation that finds santa object, routes to it and leaves presents.
-
+         
 
             public LeaveGifts(GiftGiverSituation parent) : base(parent)
             {
             }
             public override void Init(GiftGiverSituation parent)
             {
-                findGiftGiverObject();
+                this.findGiftGiverObject();
+                this.Parent.Worker.RouteToObjectRadius(findGiftGiverObject(), 3f);
             }
 
-            public void findGiftGiverObject()
+            public GameObject findGiftGiverObject()
             {
-                List <GameObject> lotObjects = this.Lot.GetObjects<GameObject>(new Predicate<GameObject>(isGiftGiverObject));
 
-                PlumbBob.SelectedActor.ShowTNSIfSelectable(lotObjects[0] + "" , Sims3.UI.StyledNotification.NotificationStyle.kSimTalking);
+                List <GameObject> lotObjects = this.Lot.GetObjects<GameObject>(new Predicate<GameObject>(this.isGiftGiverObject));
+                return lotObjects[0];
+               
+               // PlumbBob.SelectedActor.ShowTNSIfSelectable(lotObjects[0] + "" , Sims3.UI.StyledNotification.NotificationStyle.kSimTalking);
 
             }
 
@@ -85,7 +89,7 @@ namespace Sims3.Gameplay.Services.Recursor94
                 // Sims3.UI.TwoButtonDialog.Show("Sir!  The routing has begun.", "Hiya", "booya", false);
                 parent.OnServiceStarting();
                 parent.MakeServiceSimVisible(); //the former two lines actually spawn the service npc.  I'm not sure if this should be done here or in the constructor.  Leaving here for now.
-                Audio.StartSound("sting_burglar_arrive");
+                // Audio.StartSound("sting_burglar_arrive");
                 base.RequestWalkStyle(parent.Worker, Sim.WalkStyle.Sneak);
                  this.Parent.SetState(new ServiceSituation.RouteToLot<GiftGiverSituation, GiftGiverSituation.LeaveGifts>(this.Parent));
             }

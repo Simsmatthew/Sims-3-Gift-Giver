@@ -21,6 +21,7 @@ namespace Sims3.Gameplay.Services.Recursor94
             GiftGiver.kServiceTuning = new Service.ServiceTuning(4, 0, false, false, true);  //Look at constructor for meaning of values
             GiftGiver.sGiftGiver = null;
             GiftGiver.kEarliestTimeSimCanArrive = 23;
+            GiftGiver.kMaxDistanceToRouteFromServiceCarToLotWithoutTeleporting = 0f;
            // World.OnWorldLoadFinishedEventHandler += new EventHandler(GiftGiver.OnWorldLoadFinished);
 
            
