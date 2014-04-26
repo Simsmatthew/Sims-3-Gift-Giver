@@ -18,6 +18,9 @@ namespace Sims3.Gameplay.Services.Recursor94
             this.Worker.Autonomy.Motives.MaxEverything();
             this.Worker.Autonomy.Motives.FreezeDecayEverythingExcept(new CommodityKind[0]);
             this.Worker.Autonomy.IncrementAutonomyDisabled(); //what the heck does that do? VOV
+            base.SetState(new GiftGiverSituation.RouteToLot (this));
+            
+
             
             
 
@@ -36,6 +39,28 @@ namespace Sims3.Gameplay.Services.Recursor94
             {
                 return this.Service as GiftGiver;
             }
+        }
+
+        public class LeaveGifts : ChildSituation<GiftGiverSituation>
+        {
+
+
+        }
+
+
+
+        public class RouteToLot : ChildSituation<GiftGiverSituation>
+        {
+            public RouteToLot(GiftGiverSituation parent) : base(parent) //not even really sure if this is necessary.  probably calls the super class constructor which does something.
+            {
+                
+            }
+
+            public override void Init(GiftGiverSituation parent) {
+                 this.Parent.SetState(new ServiceSituation.RouteToLot<GiftGiverSituation, GiftGiverSituation.LeaveGifts>(this.Parent));
+            }
+           
+
         }
     }
 

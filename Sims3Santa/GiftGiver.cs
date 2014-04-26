@@ -33,7 +33,7 @@ namespace Sims3.Gameplay.Services.Recursor94
 
         public override void MakeServiceRequest(Lot lot, bool active, ObjectGuid simRequestingService)
         {
-            base.MakeServiceRequest(lot, active, simRequestingService, true);  //should be immediate I guess
+            base.MakeServiceRequest(lot, active, simRequestingService, true, 1);  //should be immediate I guess
         }
         
         
