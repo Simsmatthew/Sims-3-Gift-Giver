@@ -39,13 +39,17 @@ namespace Sims3.Gameplay.Services.Recursor94
             //CarrySystem.PickUp(base.Actor, this.giftBox);  Can't use carrymanager not ICarryable
             //use giftpile.add as reference
 
-            base.EnterStateMachine("giftpile", "EnterDrop", "x");
-            this.mCurrentStateMachine.SetPropActor("gift", giftBox.ObjectId);
+            base.EnterStateMachine("giftpile", "EnterDrop", "x");  
+           // this.mCurrentStateMachine.SetPropActor("gift", giftBox.ObjectId); crashes
+            this.mCurrentStateMachine.SetPropActor("gift", ObjectGuid.InvalidObjectGuid); //works perfedtly. The solution was to set the actor to an invalid GUID.  Because sure.  why not.
             base.AnimateSim("ExitDrop");
             base.StandardExit();
 
             Vector3 objPosition = base.Target.Position;
             Vector3 giftPosition = new Vector3(objPosition.x + 0.06f, objPosition.y, objPosition.z);
+            giftBox.SetPosition(giftPosition);
+            GiftGiverSituation.debugMessage(giftBox.Position + "");
+
 
             return true;
         }

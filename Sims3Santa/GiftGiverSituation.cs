@@ -18,7 +18,7 @@ namespace Sims3.Gameplay.Services.Recursor94
         
         public GiftGiverSituation(Service service, Lot lot, Sim worker, int cost) : base (service, lot, worker, cost)
         {
-            
+            GiftGiverSituation.debugMessage("situation instantiated");
             worker.AssignRole(this);
             this.Worker.Autonomy.Motives.MaxEverything();
             this.Worker.Autonomy.Motives.FreezeDecayEverythingExcept(new CommodityKind[0]);
@@ -96,6 +96,7 @@ namespace Sims3.Gameplay.Services.Recursor94
                 parent.OnServiceStarting();
                 parent.MakeServiceSimVisible(); //the former two lines actually spawn the service npc.  I'm not sure if this should be done here or in the constructor.  Leaving here for now.
                 // Audio.StartSound("sting_burglar_arrive");
+                GiftGiverSituation.debugMessage("Santa is created, visible and ready to go");
                 base.RequestWalkStyle(parent.Worker, Sim.WalkStyle.Sneak); //this isn't working.  So copy it into next situation.
                  this.Parent.SetState(new ServiceSituation.WalkToLot<GiftGiverSituation, GiftGiverSituation.LeaveGifts>(this.Parent));
             }
