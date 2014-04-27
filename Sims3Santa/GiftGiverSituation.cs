@@ -7,6 +7,8 @@ using Sims3.SimIFace;
 using Sims3.Gameplay.Autonomy;
 using Sims3.Gameplay.Abstracts;
 using Sims3.Gameplay.Objects.Recursor94;
+using Sims3.UI;
+using Sims3.Gameplay.Utilities;
 
 namespace Sims3.Gameplay.Services.Recursor94
 {
@@ -54,25 +56,27 @@ namespace Sims3.Gameplay.Services.Recursor94
             }
             public override void Init(GiftGiverSituation parent)
             {
-                this.findGiftGiverObject();
-                this.Parent.Worker.RouteToObjectRadius(findGiftGiverObject(), 3f);
+                
+                
+
+                    this.findGiftGiverObject();
+                    this.Parent.Worker.RouteToObjectRadius(findGiftGiverObject(), 0f);
+                
+             
             }
 
             public GameObject findGiftGiverObject()
             {
 
-                List <GameObject> lotObjects = this.Lot.GetObjects<GameObject>(new Predicate<GameObject>(this.isGiftGiverObject));
-                return lotObjects[0];
+                GiftGiverObject [] lotCallingObjects = this.Lot.GetObjects<GiftGiverObject>(); //get all of the santa calling objects on the lot, for now we're treating it as if there were only one--and that's the one santa cares about.
+                debugMessage(lotCallingObjects[0].ToString());
+                return lotCallingObjects[0];
                
                // PlumbBob.SelectedActor.ShowTNSIfSelectable(lotObjects[0] + "" , Sims3.UI.StyledNotification.NotificationStyle.kSimTalking);
+                
 
             }
 
-            private bool isGiftGiverObject(GameObject obj)
-            {
-                //predicate function to find the object
-                return obj.GetClassName() == "Sims3.Gameplay.Objects.Recursor94.GiftGiverObject";
-            }
         }
 
 
@@ -95,6 +99,11 @@ namespace Sims3.Gameplay.Services.Recursor94
             }
            
 
+        }
+
+        public static void debugMessage(string vsText)
+        {
+            StyledNotification.Show(new StyledNotification.Format(SimClock.CurrentTime().ToString() + " " + vsText, ObjectGuid.InvalidObjectGuid, ObjectGuid.InvalidObjectGuid, StyledNotification.NotificationStyle.kGameMessagePositive));
         }
     }
 
