@@ -7,6 +7,7 @@ using Sims3.Gameplay.CAS;
 using Sims3.Gameplay.ActorSystems;
 using Sims3.Gameplay.Core;
 using Sims3.Gameplay.Utilities;
+using Sims3.SimIFace.CAS;
 namespace Sims3.Gameplay.Services.Recursor94
 {
     public class GiftGiver : Service {
@@ -92,6 +93,7 @@ namespace Sims3.Gameplay.Services.Recursor94
         protected override ServiceSituation InternalCreateSituation(Lot assignedLot, Sim createdSim, int cost, ObjectGuid requestingSim)
         {
             return new GiftGiverSituation(this, assignedLot, createdSim, cost);
+            
         }
 
         protected override Service.ServiceTuning Tuning
@@ -150,6 +152,11 @@ namespace Sims3.Gameplay.Services.Recursor94
             GiftGiver.Instance.MakeServiceRequest(LotManager.ActiveLot, true, PlumbBob.SelectedActor.ObjectId); //must be here for alarm manager since directly putting this in alarm manager call is broken.
 
             Sims3.UI.TwoButtonDialog.Show("Sir.  The service has been requested.", "Hiya", "booya", false);
+        }
+
+        protected override CASAgeGenderFlags GetGenderForNewNpc(Lot lot)
+        {
+            return CASAgeGenderFlags.Male;
         }
     }
 }

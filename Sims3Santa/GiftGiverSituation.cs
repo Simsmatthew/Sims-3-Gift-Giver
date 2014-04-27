@@ -23,9 +23,8 @@ namespace Sims3.Gameplay.Services.Recursor94
             this.Worker.Autonomy.Motives.FreezeDecayEverythingExcept(new CommodityKind[0]);
             this.Worker.Autonomy.AllowedToRunMetaAutonomy = false;
             this.Worker.Autonomy.IncrementAutonomyDisabled(); //what the heck does that do? VOV
-            base.SetState(new GiftGiverSituation.RouteToLot (this));
+            base.SetState(new GiftGiverSituation.RouteToLot(this));  //Should be using inherited walk to lot so that he doesn't driver there instead.
             base.ScheduleSwitchWorkerToServiceOutfit();
-            
 
             
             
@@ -95,7 +94,7 @@ namespace Sims3.Gameplay.Services.Recursor94
                 parent.MakeServiceSimVisible(); //the former two lines actually spawn the service npc.  I'm not sure if this should be done here or in the constructor.  Leaving here for now.
                 // Audio.StartSound("sting_burglar_arrive");
                 base.RequestWalkStyle(parent.Worker, Sim.WalkStyle.Sneak);
-                 this.Parent.SetState(new ServiceSituation.RouteToLot<GiftGiverSituation, GiftGiverSituation.LeaveGifts>(this.Parent));
+                 this.Parent.SetState(new ServiceSituation.WalkToLot<GiftGiverSituation, GiftGiverSituation.LeaveGifts>(this.Parent));
             }
            
 
