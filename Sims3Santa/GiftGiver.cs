@@ -164,6 +164,7 @@ namespace Sims3.Gameplay.Services.Recursor94
             sim.SimDescription.Age = CASAgeGenderFlags.Elder;
             sim.SimDescription.Fitness = 0.3f;
             sim.SimDescription.Weight = 1.4f;
+            
         }
         
         

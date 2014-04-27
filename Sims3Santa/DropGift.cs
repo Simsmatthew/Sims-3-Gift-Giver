@@ -51,7 +51,7 @@ namespace Sims3.Gameplay.Services.Recursor94
             float xOffset = 1f;
             for (int n = 0; n < numberOfSims; n++)
             {
-                gift = GlobalFunctions.CreateObjectOutOfWorld("TeddyBear"); //make random later.
+                gift = GlobalFunctions.CreateObjectOutOfWorld("giftgiverbox"); //make random later.
                 Vector3 objPosition = base.Target.Position;
                 Vector3 giftPosition = new Vector3(objPosition.x + xOffset, objPosition.y, objPosition.z);
                 gift.AddToWorld();
