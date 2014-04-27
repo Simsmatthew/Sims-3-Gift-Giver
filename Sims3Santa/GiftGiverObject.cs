@@ -11,7 +11,7 @@ using Sims3.Gameplay.Services.Recursor94;
 
 namespace Sims3.Gameplay.Objects.Recursor94
 {
-    class GiftGiverObject : GameObject, IGameObject, IScriptObject, IScriptLogic, IHasScriptProxy, IObjectUI, IExportableContent
+    public class GiftGiverObject : GameObject, IGameObject, IScriptObject, IScriptLogic, IHasScriptProxy, IObjectUI, IExportableContent
     {
 
         public override void OnStartup()

@@ -9,6 +9,7 @@ using Sims3.Gameplay.Abstracts;
 using Sims3.Gameplay.Objects.Recursor94;
 using Sims3.UI;
 using Sims3.Gameplay.Utilities;
+using Sims3.Gameplay.Interactions;
 
 namespace Sims3.Gameplay.Services.Recursor94
 {
@@ -58,13 +59,15 @@ namespace Sims3.Gameplay.Services.Recursor94
                 
                 
 
-                    this.findGiftGiverObject();
-                    this.Parent.Worker.RouteToObjectRadius(findGiftGiverObject(), 0f);
+                   GiftGiverObject callingObject =  this.findGiftGiverObject();
+                    base.RequestWalkStyle(parent.Worker, Sim.WalkStyle.Sneak); 
+                    this.Parent.Worker.InteractionQueue.Add(DropGift.Singleton.CreateInstance(callingObject, this.Parent.Worker, new Interactions.InteractionPriority(InteractionPriorityLevel.RequiredNPCBehavior), false, false));
+                    
                 
              
             }
 
-            public GameObject findGiftGiverObject()
+            public GiftGiverObject findGiftGiverObject()
             {
 
                 GiftGiverObject [] lotCallingObjects = this.Lot.GetObjects<GiftGiverObject>(); //get all of the santa calling objects on the lot, for now we're treating it as if there were only one--and that's the one santa cares about.
@@ -93,7 +96,7 @@ namespace Sims3.Gameplay.Services.Recursor94
                 parent.OnServiceStarting();
                 parent.MakeServiceSimVisible(); //the former two lines actually spawn the service npc.  I'm not sure if this should be done here or in the constructor.  Leaving here for now.
                 // Audio.StartSound("sting_burglar_arrive");
-                base.RequestWalkStyle(parent.Worker, Sim.WalkStyle.Sneak);
+                base.RequestWalkStyle(parent.Worker, Sim.WalkStyle.Sneak); //this isn't working.  So copy it into next situation.
                  this.Parent.SetState(new ServiceSituation.WalkToLot<GiftGiverSituation, GiftGiverSituation.LeaveGifts>(this.Parent));
             }
            

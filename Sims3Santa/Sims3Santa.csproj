@@ -40,6 +40,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DropGift.cs" />
     <Compile Include="GiftGiverObject.cs" />
     <Compile Include="GiftGiverSituation.cs" />
     <Compile Include="GiftGiver.cs" />
